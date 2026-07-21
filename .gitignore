@@ -1,0 +1,14 @@
+.venv/
+.venv-*/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+src/printqueue/deployment/
+pysidedeploy.spec
+
+IMPLEMENTIERUNGSPLAN.md
+PrintConductor_Linux_Projekt-Spezifikation.md
