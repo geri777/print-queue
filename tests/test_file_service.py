@@ -46,4 +46,4 @@ def test_inspect_files_returns_valid_items_and_errors(tmp_path):
     items, errors = inspect_files([source, tmp_path / "missing.pdf"])
     assert [item.path for item in items] == [source.resolve()]
     assert len(errors) == 1
-    assert "nicht gefunden" in errors[0]
+    assert "not found" in errors[0]

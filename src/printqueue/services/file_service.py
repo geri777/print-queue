@@ -23,15 +23,15 @@ def classify(path: Path) -> FileKind:
         return FileKind.OFFICE
     if suffix in IMAGE_SUFFIXES:
         return FileKind.IMAGE
-    raise UnsupportedFileError(f"Nicht unterstützter Dateityp: {path.suffix or '(ohne Endung)'}")
+    raise UnsupportedFileError(f"Unsupported file type: {path.suffix or '(no extension)'}")
 
 
 def inspect_file(raw_path: str | Path) -> QueueItem:
     path = Path(raw_path).expanduser().resolve()
     if not path.exists():
-        raise FileNotFoundError(f"Datei nicht gefunden: {path}")
+        raise FileNotFoundError(f"File not found: {path}")
     if not path.is_file():
-        raise ValueError(f"Keine reguläre Datei: {path}")
+        raise ValueError(f"Not a regular file: {path}")
     kind = classify(path)
     stat = path.stat()
     return QueueItem(path=path, kind=kind, size=stat.st_size, source_mtime_ns=stat.st_mtime_ns)
@@ -50,4 +50,4 @@ def inspect_files(paths: Iterable[str | Path]) -> tuple[list[QueueItem], list[st
 
 def qt_file_filter() -> str:
     patterns = " ".join(f"*{suffix}" for suffix in sorted(SUPPORTED_SUFFIXES))
-    return f"Unterstützte Dokumente ({patterns});;Alle Dateien (*)"
+    return f"Supported documents ({patterns});;All files (*)"

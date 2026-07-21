@@ -2,18 +2,18 @@
 set -euo pipefail
 
 if [[ $# -lt 1 || $# -gt 2 ]]; then
-    echo "Verwendung: $0 PFAD_ZUM_BINARY [VERSION]" >&2
+    echo "Usage: $0 PATH_TO_BINARY [VERSION]" >&2
     exit 2
 fi
 
 binary_path=$(realpath "$1")
 package_version=${2:-0.1.0}
 if [[ ! -x "$binary_path" ]]; then
-    echo "Binary ist nicht vorhanden oder nicht ausführbar: $binary_path" >&2
+    echo "Binary does not exist or is not executable: $binary_path" >&2
     exit 2
 fi
 if ! command -v dpkg-deb >/dev/null; then
-    echo "dpkg-deb ist nicht installiert." >&2
+    echo "dpkg-deb is not installed." >&2
     exit 2
 fi
 
@@ -44,5 +44,4 @@ sed \
 
 output="$project_dir/dist/printqueue_${package_version}_${architecture}.deb"
 dpkg-deb --root-owner-group --build "$stage_dir" "$output"
-echo "Erzeugt: $output"
-
+echo "Created: $output"

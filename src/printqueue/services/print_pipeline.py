@@ -36,14 +36,14 @@ class PrintPipeline:
         cancelled: threading.Event,
     ) -> str:
         if not items:
-            raise ValueError("Die Druckliste ist leer.")
+            raise ValueError("The print queue is empty.")
 
         with tempfile.TemporaryDirectory(prefix="printqueue-") as temp_name:
             temp_dir = Path(temp_name)
             pdfs: list[Path] = []
             for index, item in enumerate(items):
                 self._check_cancelled(cancelled)
-                progress(index, ItemState.PROCESSING, f"Konvertiere {index + 1} von {len(items)}")
+                progress(index, ItemState.PROCESSING, f"Converting {index + 1} of {len(items)}")
                 item_dir = temp_dir / f"item-{index:04d}"
                 item_dir.mkdir()
                 try:
@@ -51,16 +51,16 @@ class PrintPipeline:
                 except Exception as exc:
                     progress(index, ItemState.ERROR, str(exc))
                     raise
-                progress(index, ItemState.DONE, "Für den Druck vorbereitet")
+                progress(index, ItemState.DONE, "Ready to print")
 
             self._check_cancelled(cancelled)
-            stage("Führe Dokumente zusammen …")
-            merged = merge_pdfs(pdfs, temp_dir / "druckauftrag.pdf")
+            stage("Merging documents …")
+            merged = merge_pdfs(pdfs, temp_dir / "print-job.pdf")
             self._check_cancelled(cancelled)
-            stage("Übermittle Druckauftrag an CUPS …")
+            stage("Submitting print job to CUPS …")
             return self.printer.submit(merged, options)
 
     @staticmethod
     def _check_cancelled(cancelled: threading.Event) -> None:
         if cancelled.is_set():
-            raise PrintCancelled("Druckvorbereitung wurde abgebrochen.")
+            raise PrintCancelled("Print preparation was cancelled.")

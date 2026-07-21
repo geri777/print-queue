@@ -32,7 +32,7 @@ class SingleInstance(QObject):
         if self.server.listen(self.server_name):
             return True
         raise RuntimeError(
-            f"Einzelinstanz konnte nicht gestartet werden: {self.server.errorString()}"
+            f"The single-instance server could not be started: {self.server.errorString()}"
         )
 
     def _forward(self, paths: list[str]) -> bool:

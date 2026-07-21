@@ -6,7 +6,7 @@ from printqueue.domain import ItemState, QueueItem
 
 
 class FileTableModel(QAbstractTableModel):
-    HEADERS = ("Datei", "Typ", "Größe", "Status")
+    HEADERS = ("File", "Type", "Size", "Status")
 
     def __init__(self) -> None:
         super().__init__()

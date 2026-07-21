@@ -27,12 +27,12 @@ class ConversionService:
     @staticmethod
     def _validate_source(item: QueueItem) -> None:
         if not item.path.is_file():
-            raise ConversionError(f"Quelldatei ist nicht mehr vorhanden: {item.path}")
+            raise ConversionError(f"The source file no longer exists: {item.path}")
 
     def _convert_office(self, source: Path, output_dir: Path) -> Path:
         executable = shutil.which("libreoffice") or shutil.which("soffice")
         if not executable:
-            raise ConversionError("LibreOffice ist nicht installiert oder nicht im PATH.")
+            raise ConversionError("LibreOffice is not installed or is not available in PATH.")
 
         profile_dir = output_dir / "libreoffice-profile"
         profile_dir.mkdir()
@@ -58,16 +58,12 @@ class ConversionService:
                 check=False,
             )
         except subprocess.TimeoutExpired as exc:
-            raise ConversionError(
-                f"Zeitüberschreitung bei der Konvertierung von {source.name}"
-            ) from exc
+            raise ConversionError(f"Conversion timed out for {source.name}") from exc
 
         target = output_dir / f"{source.stem}.pdf"
         if result.returncode or not target.is_file():
             details = (result.stderr or result.stdout).strip()
-            raise ConversionError(
-                details or f"LibreOffice konnte {source.name} nicht konvertieren."
-            )
+            raise ConversionError(details or f"LibreOffice could not convert {source.name}.")
         return target
 
     @staticmethod
@@ -81,7 +77,7 @@ class ConversionService:
                     for frame in ImageSequence.Iterator(image)
                 ]
                 if not pages:
-                    raise ConversionError(f"Bild enthält keine Seiten: {source.name}")
+                    raise ConversionError(f"The image contains no pages: {source.name}")
                 target = output_dir / f"{source.stem}.pdf"
                 pages[0].save(target, "PDF", resolution=150, save_all=True, append_images=pages[1:])
                 for page in pages:
@@ -91,7 +87,7 @@ class ConversionService:
             raise
         except Exception as exc:
             raise ConversionError(
-                f"Bild konnte nicht konvertiert werden: {source.name}: {exc}"
+                f"The image could not be converted: {source.name}: {exc}"
             ) from exc
 
     @staticmethod

@@ -8,14 +8,14 @@ from pathlib import Path
 class FileKind(str, Enum):
     PDF = "PDF"
     OFFICE = "Office"
-    IMAGE = "Bild"
+    IMAGE = "Image"
 
 
 class ItemState(str, Enum):
-    READY = "Bereit"
-    PROCESSING = "Wird verarbeitet"
-    DONE = "Fertig"
-    ERROR = "Fehler"
+    READY = "Ready"
+    PROCESSING = "Processing"
+    DONE = "Done"
+    ERROR = "Error"
 
 
 @dataclass(slots=True)

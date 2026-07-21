@@ -8,8 +8,10 @@ from printqueue import __version__
 
 
 def parse_args(arguments: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(prog="printqueue", description="Dokumente gesammelt drucken")
-    parser.add_argument("files", nargs="*", help="Dateien, die zur Druckliste hinzugefügt werden")
+    parser = argparse.ArgumentParser(
+        prog="printqueue", description="Collect and print documents as one job"
+    )
+    parser.add_argument("files", nargs="*", help="Files to add to the print queue")
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     return parser.parse_args(arguments)
 
@@ -33,7 +35,7 @@ def main() -> int:
     try:
         primary = instance.start_or_forward(paths)
     except RuntimeError as exc:
-        QMessageBox.critical(None, "PrintQueue konnte nicht gestartet werden", str(exc))
+        QMessageBox.critical(None, "PrintQueue could not be started", str(exc))
         return 1
     if not primary:
         return 0

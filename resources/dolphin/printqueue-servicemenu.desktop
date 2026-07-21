@@ -5,6 +5,6 @@ Actions=addToPrintQueue;
 X-KDE-Submenu=PrintQueue
 
 [Desktop Action addToPrintQueue]
-Name=Zu PrintQueue hinzufügen
+Name=Add to PrintQueue
 Icon=printer
 Exec=printqueue %F

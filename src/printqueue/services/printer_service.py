@@ -86,9 +86,9 @@ class PrinterService:
     @staticmethod
     def submit(pdf: Path, options: PrintOptions) -> str:
         if not shutil.which("lp"):
-            raise PrinterError("CUPS-Clientprogramm 'lp' ist nicht installiert oder nicht im PATH.")
+            raise PrinterError("The CUPS client 'lp' is not installed or is not available in PATH.")
         if not options.printer:
-            raise PrinterError("Es wurde kein Drucker ausgewählt.")
+            raise PrinterError("No printer has been selected.")
 
         command = [
             "lp",
@@ -107,8 +107,8 @@ class PrinterService:
         result = subprocess.run(command, capture_output=True, text=True, check=False, timeout=30)
         if result.returncode:
             raise PrinterError(
-                (result.stderr or result.stdout).strip() or "CUPS hat den Auftrag abgelehnt."
+                (result.stderr or result.stdout).strip() or "CUPS rejected the print job."
             )
         output = result.stdout.strip()
         match = _JOB_ID.search(output)
-        return match.group(1) if match else output or "übermittelt"
+        return match.group(1) if match else output or "submitted"

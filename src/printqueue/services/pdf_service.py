@@ -16,13 +16,13 @@ def merge_pdfs(sources: Iterable[Path], target: Path) -> Path:
         for source in sources:
             writer.append(str(source))
         if not writer.pages:
-            raise PdfMergeError("Es sind keine druckbaren PDF-Seiten vorhanden.")
+            raise PdfMergeError("No printable PDF pages are available.")
         with target.open("wb") as output:
             writer.write(output)
     except PdfMergeError:
         raise
     except Exception as exc:
-        raise PdfMergeError(f"PDFs konnten nicht zusammengeführt werden: {exc}") from exc
+        raise PdfMergeError(f"The PDF files could not be merged: {exc}") from exc
     finally:
         writer.close()
     return target

@@ -1,74 +1,72 @@
-# PrintQueue für Linux
+# PrintQueue for Linux
 
-PrintQueue ist eine Desktop-Anwendung für KDE/Kubuntu, mit der sich mehrere Dokumente
-sammeln, sortieren und als ein gemeinsamer CUPS-Druckauftrag ausgeben lassen. Sie ist als
-Linux-Alternative zu Print Conductor konzipiert.
+PrintQueue is a KDE/Linux desktop application for collecting and arranging multiple
+documents and sending them to CUPS as a single print job. It is designed as a Linux
+alternative to Print Conductor.
 
-Dateien werden beim Hinzufügen nicht konvertiert. Die Konvertierung beginnt erst mit dem
-Druckauftrag, damit die Bedienoberfläche unmittelbar reagiert.
+Files are not converted when they are added. Conversion starts only when the user clicks
+**Print**, keeping the user interface responsive.
 
-## Funktionen
+## Features
 
-- Dateien per Drag & Drop oder Dateidialog hinzufügen
-- mehrere Dateien über Kommandozeile und Dolphin-Kontextmenü übernehmen
-- Reihenfolge ändern sowie einzelne oder alle Einträge entfernen
-- Drucker, Kopien, Duplex, Papierformat und Ausrichtung auswählen
-- Druckerfähigkeiten dynamisch über CUPS ermitteln
-- Office-Dokumente über LibreOffice Headless in PDF konvertieren
-- Bilder einschließlich mehrseitiger TIFF-Dateien in PDF konvertieren
-- alle Dokumente in Listenreihenfolge zu einem Druckauftrag zusammenführen
-- Fortschrittsanzeige, Abbruch und verständliche Fehlermeldungen
-- neue Dateien an eine bereits laufende PrintQueue-Instanz übergeben
+- Add files through drag and drop or a file dialog
+- Add multiple files from the command line or the Dolphin context menu
+- Reorder files and remove individual or all entries
+- Select a printer, copy count, duplex mode, paper size, and orientation
+- Detect printer capabilities dynamically through CUPS
+- Convert office documents to PDF with LibreOffice in headless mode
+- Convert images, including multi-page TIFF files, to PDF
+- Merge all documents in list order and submit them as one print job
+- Show progress and actionable error messages, with support for cancellation
+- Forward files from additional launches to the running PrintQueue instance
 
-## Unterstützte Formate
+## Supported formats
 
-| Kategorie | Formate |
+| Category | Formats |
 |---|---|
-| Dokumente | PDF |
+| Documents | PDF |
 | Microsoft Office | DOC, DOCX, XLS, XLSX, PPT, PPTX |
 | OpenDocument | ODT, ODS, ODP |
-| Bilder | PNG, JPG, JPEG, TIFF, BMP, WebP |
+| Images | PNG, JPG, JPEG, TIFF, BMP, WebP |
 
-## Voraussetzungen
+## Requirements
 
-- Kubuntu oder eine vergleichbare Linux-Distribution mit KDE
-- Python 3.10 oder neuer für Entwicklung und Quellinstallation
-- CUPS-Clientprogramme `lp`, `lpstat` und `lpoptions`
-- LibreOffice nur für Office- und OpenDocument-Dateien
+- Kubuntu or a comparable Linux distribution with KDE
+- Python 3.10 or newer for development or source installation
+- The CUPS client commands `lp`, `lpstat`, and `lpoptions`
+- LibreOffice only when printing Office or OpenDocument files
 
-Unter Ubuntu/Kubuntu lassen sich fehlende Laufzeitkomponenten gezielt installieren:
+On Ubuntu/Kubuntu, install only the missing runtime components:
 
 ```bash
 command -v lp >/dev/null || sudo apt install cups-client
 command -v libreoffice >/dev/null || command -v soffice >/dev/null || sudo apt install libreoffice
 ```
 
-Eine vorhandene LibreOffice-Installation wird dabei nicht erneut installiert. Auch eine
-Installation außerhalb von APT wird berücksichtigt, sofern `libreoffice` oder `soffice`
-über `PATH` erreichbar ist.
+This does not reinstall an existing LibreOffice installation. Installations outside APT
+are also recognized when `libreoffice` or `soffice` is available through `PATH`.
 
-## Installation aus einem Debian-Paket
+## Install a released Debian package
 
-Ein veröffentlichtes Paket wird einschließlich seiner erforderlichen Abhängigkeiten mit
-APT installiert:
+Use APT so that required package dependencies are installed automatically:
 
 ```bash
 sudo apt install ./printqueue_0.1.0_amd64.deb
 ```
 
-LibreOffice ist im Paket bewusst nur als `Suggests` eingetragen. Ohne LibreOffice können
-PDFs und Bilder weiterhin gedruckt werden; bei einer Office-Datei weist PrintQueue auf
-die fehlende Komponente hin.
+LibreOffice is deliberately declared as `Suggests`, not as a hard dependency. PDFs and
+images can be printed without it; PrintQueue reports the missing component only when an
+office document needs to be converted.
 
-Deinstallation:
+Uninstall PrintQueue with:
 
 ```bash
 sudo apt remove printqueue
 ```
 
-## Installation aus dem Quellcode
+## Install from source
 
-Repository klonen und eine isolierte Python-Umgebung erstellen:
+Clone the repository and create an isolated Python environment:
 
 ```bash
 git clone https://github.com/OWNER/printqueue.git
@@ -79,32 +77,30 @@ python3 -m venv .venv
 .venv/bin/printqueue
 ```
 
-`OWNER` muss durch den tatsächlichen GitHub-Benutzer oder die Organisation ersetzt
-werden.
+Replace `OWNER` with the GitHub account or organization hosting the repository.
 
-## Bedienung
+## Usage
 
-Die Anwendung kann ohne Parameter oder direkt mit mehreren Dateien gestartet werden:
+Launch PrintQueue without arguments or pass multiple files directly:
 
 ```bash
 printqueue
-printqueue angebot.docx anhang.pdf scan.png
+printqueue proposal.docx appendix.pdf scan.png
 ```
 
-Weitere Aufrufe übergeben ihre Dateien an das bereits geöffnete Fenster. Nach dem
-Drucken fragt PrintQueue, ob die Einträge aus der Liste entfernt werden sollen.
+Additional launches forward their files to the existing window. After a successful print
+submission, PrintQueue asks whether the files should be removed from the list.
 
-### Temporäre Dateien
+### Temporary files
 
-Konvertierte Dateien liegen ausschließlich während der Druckvorbereitung in einem
-geschützten Unterverzeichnis des System-Temp-Verzeichnisses, unter Linux normalerweise
-unter `/tmp/printqueue-*`. Sie werden nach Übergabe an CUPS sowie bei Fehler oder Abbruch
-automatisch entfernt.
+Converted files exist only during print preparation in a protected subdirectory of the
+system temporary directory, normally `/tmp/printqueue-*` on Linux. They are removed after
+submission to CUPS and also after errors or cancellation.
 
-## Dolphin-Integration bei einer Quellinstallation
+## Dolphin context-menu integration
 
-Die Dateien für das Anwendungsmenü und Dolphin können benutzerspezifisch installiert
-werden:
+For an installation from source, install the application entry and Dolphin service menu
+for the current user:
 
 ```bash
 install -Dm644 resources/org.printqueue.PrintQueue.desktop \
@@ -113,13 +109,13 @@ install -Dm755 resources/dolphin/printqueue-servicemenu.desktop \
   ~/.local/share/kio/servicemenus/printqueue-servicemenu.desktop
 ```
 
-Danach steht für unterstützte Dateien die Aktion **Zu PrintQueue hinzufügen** bereit.
-Falls Dolphin bereits geöffnet war, muss es gegebenenfalls neu gestartet werden. Das
-Debian-Paket installiert diese Integration systemweit.
+Supported files then provide an **Add to PrintQueue** action in Dolphin's context menu.
+Restart Dolphin if it was already running. The Debian package installs this integration
+system-wide.
 
-## Entwicklung
+## Development
 
-Entwicklungsabhängigkeiten installieren:
+Install the development dependencies:
 
 ```bash
 python3 -m venv .venv
@@ -127,7 +123,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -e '.[dev]'
 ```
 
-Tests und statische Prüfung ausführen:
+Run the tests and static checks:
 
 ```bash
 .venv/bin/pytest -q
@@ -135,50 +131,60 @@ Tests und statische Prüfung ausführen:
 .venv/bin/ruff format --check .
 ```
 
-Projektstruktur:
+Project layout:
 
 ```text
-src/printqueue/        Anwendung und Benutzeroberfläche
-src/printqueue/services/ Konvertierungs- und Druckdienste
-tests/                 automatisierte Tests
-resources/             Desktop- und Dolphin-Integration
-packaging/             Debian-Paketierung
+src/printqueue/          Application and user interface
+src/printqueue/services Conversion and printing services
+tests/                   Automated tests
+resources/               Desktop and Dolphin integration
+packaging/               Binary and Debian packaging scripts
 ```
 
-## Eigenständiges Linux-Binary bauen
+## Build a standalone Linux binary
 
-Qt stellt mit `pyside6-deploy` einen Nuitka-basierten Deployment-Weg bereit. Für einen
-Build unter Ubuntu/Kubuntu werden zusätzlich Compiler- und Paketwerkzeuge benötigt:
+The supplied script uses Nuitka with its official PySide6 integration. Install the build
+prerequisites on Ubuntu/Kubuntu, create a fresh virtual environment, and run the build:
 
 ```bash
 sudo apt install python3-venv build-essential dpkg-dev libxkbcommon0
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -e '.[dev]'
-.venv/bin/pyside6-deploy src/printqueue/main.py \
-  --name PrintQueue \
-  --mode onefile
+packaging/build-binary.sh
 ```
 
-Das Binary wird derzeit als `src/printqueue/deployment/main.bin` erzeugt. Es enthält
-Python, PySide6/Qt und die benötigten Python-Bibliotheken. CUPS und LibreOffice bleiben
-Systemkomponenten.
+The script installs its Python-side build tools, including `patchelf`, inside the virtual
+environment and adds that environment to `PATH` for the build. If this is not possible on
+the target system, install the native command with `sudo apt install patchelf`.
 
-## Debian-Paket bauen
+The result is written to `dist/printqueue.bin`. The script exposes the complete Nuitka
+output and stops on compilation errors. The binary includes Python, PySide6/Qt, and the
+required Python libraries. CUPS and LibreOffice remain system components.
 
-Aus dem erzeugten Binary erstellt das mitgelieferte Skript ein installierbares `.deb`:
+Do not move a virtual environment after creating it because its launcher scripts contain
+absolute paths. If the repository has moved, create a new virtual environment at the new
+location. A custom environment can be passed explicitly:
 
 ```bash
-packaging/build-deb.sh src/printqueue/deployment/main.bin 0.1.0
+packaging/build-binary.sh /path/to/venv/bin/python
 ```
 
-Das Ergebnis liegt abhängig von der Architektur beispielsweise hier:
+## Build a Debian package
+
+Create an installable `.deb` from the standalone binary:
+
+```bash
+packaging/build-deb.sh dist/printqueue.bin 0.1.0
+```
+
+The architecture-specific result is written to `dist`, for example:
 
 ```text
 dist/printqueue_0.1.0_amd64.deb
 ```
 
-Paket kontrollieren und installieren:
+Inspect and install the package:
 
 ```bash
 dpkg-deb --info dist/printqueue_0.1.0_amd64.deb
@@ -186,34 +192,30 @@ dpkg-deb --contents dist/printqueue_0.1.0_amd64.deb
 sudo apt install ./dist/printqueue_0.1.0_amd64.deb
 ```
 
-## `.deb` veröffentlichen
+## Publishing a `.deb` release
 
-Ja, PrintQueue kann als `.deb` veröffentlicht werden. Vor einem GitHub-Release sollten
-folgende Schritte abgeschlossen werden:
+PrintQueue can be distributed as a `.deb`. Before publishing a GitHub release:
 
-1. Versionsnummer in `pyproject.toml` und `src/printqueue/__init__.py` aktualisieren.
-2. Tests und Ruff-Prüfungen erfolgreich ausführen.
-3. Das Binary auf der ältesten unterstützten Ubuntu-/Kubuntu-Version bauen. Ein dort
-   gebautes Binary ist wegen der glibc-Kompatibilität meist auch auf neueren Versionen
-   lauffähig; umgekehrt gilt das nicht zuverlässig.
-4. Das `.deb` mit derselben Versionsnummer erzeugen.
-5. Installation, Programmstart, LibreOffice-Konvertierung, CUPS-Druck und Deinstallation
-   in einer sauberen VM testen.
-6. Prüfsumme erzeugen:
+1. Update the version in `pyproject.toml` and `src/printqueue/__init__.py`.
+2. Run the complete test and Ruff suites.
+3. Build on the oldest Ubuntu/Kubuntu version you intend to support. A binary built there
+   will generally run on newer glibc versions; the reverse is not reliable.
+4. Build the `.deb` with the same version number.
+5. Test installation, launch, LibreOffice conversion, CUPS printing, and removal in a
+   clean virtual machine.
+6. Generate a checksum:
 
    ```bash
    sha256sum dist/printqueue_0.1.0_amd64.deb \
      > dist/printqueue_0.1.0_amd64.deb.sha256
    ```
 
-7. Git-Tag wie `v0.1.0` erstellen und `.deb` sowie `.sha256` an den GitHub-Release
-   anhängen.
+7. Create a Git tag such as `v0.1.0` and attach the `.deb` and `.sha256` files to the
+   GitHub release.
 
-Für verschiedene Ubuntu-Versionen oder CPU-Architekturen sollten getrennte Pakete in
-reproduzierbaren CI-Umgebungen gebaut und getestet werden.
+Build and test separate packages in reproducible CI environments for each supported CPU
+architecture or substantially different distribution baseline.
 
-## Lizenz
+## License
 
-Das Projekt ist derzeit als **GPL-3.0-or-later** deklariert. Vor einem öffentlichen
-Release sollte zusätzlich eine vollständige `LICENSE`-Datei ins Repository aufgenommen
-und die Lizenzierung aller mitgelieferten Komponenten geprüft werden.
+This project is published under **GPL-3.0-or-later**

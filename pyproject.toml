@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "printqueue"
 version = "0.1.0"
-description = "Dokumente sammeln, konvertieren und als gemeinsamen CUPS-Auftrag drucken"
+description = "Collect, convert, and print documents as a single CUPS job"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "GPL-3.0-or-later" }
