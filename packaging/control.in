@@ -5,7 +5,7 @@ Priority: optional
 Architecture: @ARCH@
 Maintainer: PrintQueue Project
 Depends: cups-client, libxkbcommon0
-Suggests: libreoffice
+Suggests: libreoffice, printqueue-dolphin, printqueue-nautilus
 Description: Collect documents and print them as one job
  PrintQueue converts office documents and images to temporary PDF files and
  submits them to CUPS as a single print job.

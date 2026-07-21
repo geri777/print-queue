@@ -1,0 +1,10 @@
+Package: printqueue-dolphin
+Version: @VERSION@
+Section: office
+Priority: optional
+Architecture: all
+Maintainer: PrintQueue Project
+Depends: printqueue (= @VERSION@), dolphin
+Enhances: printqueue
+Description: Dolphin integration for PrintQueue
+ Adds an "Add to PrintQueue" action to the Dolphin file context menu.

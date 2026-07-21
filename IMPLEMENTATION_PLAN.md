@@ -27,6 +27,7 @@
 - [x] Accept multiple files from the command line
 - [x] Forward files to the running single instance
 - [x] Provide an application launcher and Dolphin service menu
+- [x] Provide a Nautilus extension for GNOME Files
 
 ## Phase 5 — Quality and distribution
 
@@ -34,5 +35,6 @@
 - [x] Add Ruff, syntax, and CLI checks
 - [x] Document the Nuitka/PySide6 deployment process
 - [x] Provide scripts and metadata for Debian packaging
+- [x] Split the main, Dolphin, and Nautilus integrations into separate Debian packages
 - [ ] Run integration tests on KDE with LibreOffice, CUPS, and a real printer
 - [ ] Add AppImage distribution after stabilizing the Debian package

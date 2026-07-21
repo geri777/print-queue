@@ -1,8 +1,8 @@
 # PrintQueue for Linux
 
-PrintQueue is a KDE/Linux desktop application for collecting and arranging multiple
-documents and sending them to CUPS as a single print job. It is designed as a Linux
-alternative to Print Conductor.
+PrintQueue is a Linux desktop application for collecting and arranging multiple documents
+and sending them to CUPS as a single print job. It supports KDE Plasma and GNOME and is
+designed as a Linux alternative to Print Conductor.
 
 Files are not converted when they are added. Conversion starts only when the user clicks
 **Print**, keeping the user interface responsive.
@@ -10,7 +10,7 @@ Files are not converted when they are added. Conversion starts only when the use
 ## Features
 
 - Add files through drag and drop or a file dialog
-- Add multiple files from the command line or the Dolphin context menu
+- Add multiple files from the command line, Dolphin, or GNOME Files
 - Reorder files and remove individual or all entries
 - Select a printer, copy count, duplex mode, paper size, and orientation
 - Detect printer capabilities dynamically through CUPS
@@ -31,7 +31,7 @@ Files are not converted when they are added. Conversion starts only when the use
 
 ## Requirements
 
-- Kubuntu or a comparable Linux distribution with KDE
+- A Linux distribution with KDE Plasma or GNOME
 - Python 3.10 or newer for development or source installation
 - The CUPS client commands `lp`, `lpstat`, and `lpoptions`
 - LibreOffice only when printing Office or OpenDocument files
@@ -46,13 +46,27 @@ command -v libreoffice >/dev/null || command -v soffice >/dev/null || sudo apt i
 This does not reinstall an existing LibreOffice installation. Installations outside APT
 are also recognized when `libreoffice` or `soffice` is available through `PATH`.
 
-## Install a released Debian package
+## Install released Debian packages
 
 Use APT so that required package dependencies are installed automatically:
 
 ```bash
 sudo apt install ./printqueue_0.1.0_amd64.deb
 ```
+
+Install only the integration package for your desktop:
+
+```bash
+# KDE Plasma / Dolphin
+sudo apt install ./printqueue-dolphin_0.1.0_all.deb
+
+# GNOME / Files (Nautilus)
+sudo apt install ./printqueue-nautilus_0.1.0_all.deb
+```
+
+The integration packages depend on the matching version of the main `printqueue` package.
+They are intentionally separate, so installing PrintQueue on GNOME does not install
+Dolphin and installing it on KDE does not install Nautilus.
 
 LibreOffice is deliberately declared as `Suggests`, not as a hard dependency. PDFs and
 images can be printed without it; PrintQueue reports the missing component only when an
@@ -97,7 +111,9 @@ Converted files exist only during print preparation in a protected subdirectory 
 system temporary directory, normally `/tmp/printqueue-*` on Linux. They are removed after
 submission to CUPS and also after errors or cancellation.
 
-## Dolphin context-menu integration
+## File-manager context-menu integration
+
+### Dolphin
 
 For an installation from source, install the application entry and Dolphin service menu
 for the current user:
@@ -111,7 +127,21 @@ install -Dm755 resources/dolphin/printqueue-servicemenu.desktop \
 
 Supported files then provide an **Add to PrintQueue** action in Dolphin's context menu.
 Restart Dolphin if it was already running. The Debian package installs this integration
-system-wide.
+system-wide through the separate `printqueue-dolphin` package.
+
+### GNOME Files (Nautilus)
+
+Install the Nautilus extension for the current user:
+
+```bash
+install -Dm644 resources/nautilus/printqueue.py \
+  ~/.local/share/nautilus-python/extensions/printqueue.py
+nautilus -q
+```
+
+The **Add to PrintQueue** action appears for supported local files after GNOME Files is
+started again. The `printqueue-nautilus` package installs the extension system-wide and
+declares `nautilus` and `python3-nautilus` as its dependencies.
 
 ## Development
 
@@ -138,6 +168,7 @@ src/printqueue/          Application and user interface
 src/printqueue/services Conversion and printing services
 tests/                   Automated tests
 resources/               Desktop and Dolphin integration
+resources/nautilus/      GNOME Files integration
 packaging/               Binary and Debian packaging scripts
 ```
 
@@ -172,16 +203,18 @@ packaging/build-binary.sh /path/to/venv/bin/python
 
 ## Build a Debian package
 
-Create an installable `.deb` from the standalone binary:
+Create the main package and both optional integration packages from the standalone binary:
 
 ```bash
 packaging/build-deb.sh dist/printqueue.bin 0.1.0
 ```
 
-The architecture-specific result is written to `dist`, for example:
+The results are written to `dist`:
 
 ```text
 dist/printqueue_0.1.0_amd64.deb
+dist/printqueue-dolphin_0.1.0_all.deb
+dist/printqueue-nautilus_0.1.0_all.deb
 ```
 
 Inspect and install the package:
@@ -191,6 +224,8 @@ dpkg-deb --info dist/printqueue_0.1.0_amd64.deb
 dpkg-deb --contents dist/printqueue_0.1.0_amd64.deb
 sudo apt install ./dist/printqueue_0.1.0_amd64.deb
 ```
+
+Install one of the optional desktop integrations afterward as shown above.
 
 ## Publishing a `.deb` release
 
@@ -210,8 +245,8 @@ PrintQueue can be distributed as a `.deb`. Before publishing a GitHub release:
      > dist/printqueue_0.1.0_amd64.deb.sha256
    ```
 
-7. Create a Git tag such as `v0.1.0` and attach the `.deb` and `.sha256` files to the
-   GitHub release.
+7. Create a Git tag such as `v0.1.0` and attach the main `.deb`, both integration packages,
+   and their `.sha256` files to the GitHub release.
 
 Build and test separate packages in reproducible CI environments for each supported CPU
 architecture or substantially different distribution baseline.
@@ -219,3 +254,9 @@ architecture or substantially different distribution baseline.
 ## License
 
 This project is published under **GPL-3.0-or-later**
+
+## Disclaimer
+
+This software is provided "as is" without warranty of any kind. The author is not liable for any damages or losses resulting from the use of this software. Use at your own risk.
+
+Print Conductor is a registered trademark of fCoder Group, Inc. This project is not affiliated with or endorsed by fCoder Group, Inc. 

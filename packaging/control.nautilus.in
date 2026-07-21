@@ -1,0 +1,10 @@
+Package: printqueue-nautilus
+Version: @VERSION@
+Section: office
+Priority: optional
+Architecture: all
+Maintainer: PrintQueue Project
+Depends: printqueue (= @VERSION@), nautilus, python3-nautilus
+Enhances: printqueue
+Description: Nautilus integration for PrintQueue
+ Adds an "Add to PrintQueue" action to the GNOME Files context menu.
