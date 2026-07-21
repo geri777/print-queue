@@ -7,6 +7,8 @@ designed as a Linux alternative to Print Conductor.
 Files are not converted when they are added. Conversion starts only when the user clicks
 **Print**, keeping the user interface responsive.
 
+![PrintQueue main window](resources/screenshot.png)
+
 ## Features
 
 - Add files through drag and drop or a file dialog
@@ -83,15 +85,13 @@ sudo apt remove printqueue
 Clone the repository and create an isolated Python environment:
 
 ```bash
-git clone https://github.com/OWNER/printqueue.git
-cd printqueue
+git clone https://github.com/geri777/print-queue.git
+cd print-queue
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -e .
 .venv/bin/printqueue
 ```
-
-Replace `OWNER` with the GitHub account or organization hosting the repository.
 
 ## Usage
 

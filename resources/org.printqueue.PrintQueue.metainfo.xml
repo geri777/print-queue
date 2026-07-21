@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.printqueue.PrintQueue</id>
+  <name>PrintQueue</name>
+  <summary>Collect and print multiple documents as one job</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <description>
+    <p>
+      PrintQueue collects PDF, office, and image files, converts them when necessary,
+      and submits them to CUPS as a single print job.
+    </p>
+    <p>
+      Files can be added through drag and drop, a file dialog, the command line, or
+      context-menu integrations for Dolphin and GNOME Files.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">org.printqueue.PrintQueue.desktop</launchable>
+
+  <screenshots>
+    <screenshot type="default">
+      <image type="source" width="1078" height="738">https://raw.githubusercontent.com/geri777/print-queue/main/resources/screenshot.png</image>
+      <caption>PrintQueue main window</caption>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">https://github.com/geri777/print-queue/</url>
+  <url type="bugtracker">https://github.com/geri777/print-queue/issues</url>
+
+  <releases>
+    <release version="0.1.0" date="2026-07-21"/>
+  </releases>
+
+  <content_rating type="oars-1.1"/>
+</component>

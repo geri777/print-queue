@@ -31,6 +31,8 @@ trap cleanup EXIT
 install -Dm755 "$binary_path" "$stage_dir/usr/bin/printqueue"
 install -Dm644 "$project_dir/resources/org.printqueue.PrintQueue.desktop" \
     "$stage_dir/usr/share/applications/org.printqueue.PrintQueue.desktop"
+install -Dm644 "$project_dir/resources/org.printqueue.PrintQueue.metainfo.xml" \
+    "$stage_dir/usr/share/metainfo/org.printqueue.PrintQueue.metainfo.xml"
 install -Dm644 "$project_dir/README.md" \
     "$stage_dir/usr/share/doc/printqueue/README.md"
 
