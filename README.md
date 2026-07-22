@@ -50,13 +50,14 @@ are also recognized when `libreoffice` or `soffice` is available through `PATH`.
 
 ## Install released Debian packages
 
-Use APT so that required package dependencies are installed automatically:
+Download the latest release from https://github.com/geri777/print-queue/releases/
+Install the printqueue package with:
 
 ```bash
 sudo apt install ./printqueue_0.1.0_amd64.deb
 ```
 
-Install only the integration package for your desktop:
+Install the integration package for your desktop (Right-click → **Add to PrintQueue** in the file manager). The integration packages are optional and can be installed or removed at any time. 
 
 ```bash
 # KDE Plasma / Dolphin
@@ -68,7 +69,7 @@ sudo apt install ./printqueue-nautilus_0.1.0_all.deb
 
 The integration packages depend on the matching version of the main `printqueue` package.
 They are intentionally separate, so installing PrintQueue on GNOME does not install
-Dolphin and installing it on KDE does not install Nautilus.
+Dolphin and installing it on KDE does not install Nautilus integration.
 
 LibreOffice is deliberately declared as `Suggests`, not as a hard dependency. PDFs and
 images can be printed without it; PrintQueue reports the missing component only when an
@@ -111,7 +112,7 @@ Converted files exist only during print preparation in a protected subdirectory 
 system temporary directory, normally `/tmp/printqueue-*` on Linux. They are removed after
 submission to CUPS and also after errors or cancellation.
 
-## File-manager context-menu integration
+## Manual File-manager context-menu integration
 
 ### Dolphin
 
