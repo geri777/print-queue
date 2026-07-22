@@ -55,17 +55,17 @@ Download the latest release from https://github.com/geri777/print-queue/releases
 Install the printqueue package with:
 
 ```bash
-sudo apt install ./printqueue_0.1.0_amd64.deb
+sudo apt install ./printqueue_0.1.1_amd64.deb
 ```
 
 Install the integration package for your desktop (Right-click → **Add to PrintQueue** in the file manager). The integration packages are optional and can be installed or removed at any time. 
 
 ```bash
 # KDE Plasma / Dolphin
-sudo apt install ./printqueue-dolphin_0.1.0_all.deb
+sudo apt install ./printqueue-dolphin_0.1.1_all.deb
 
 # GNOME / Files (Nautilus)
-sudo apt install ./printqueue-nautilus_0.1.0_all.deb
+sudo apt install ./printqueue-nautilus_0.1.1_all.deb
 ```
 
 The integration packages depend on the matching version of the main `printqueue` package.
@@ -209,23 +209,23 @@ packaging/build-binary.sh /path/to/venv/bin/python
 Create the main package and both optional integration packages from the standalone binary:
 
 ```bash
-packaging/build-deb.sh dist/printqueue.bin 0.1.0
+packaging/build-deb.sh dist/printqueue.bin 0.1.1
 ```
 
 The results are written to `dist`:
 
 ```text
-dist/printqueue_0.1.0_amd64.deb
-dist/printqueue-dolphin_0.1.0_all.deb
-dist/printqueue-nautilus_0.1.0_all.deb
+dist/printqueue_0.1.1_amd64.deb
+dist/printqueue-dolphin_0.1.1_all.deb
+dist/printqueue-nautilus_0.1.1_all.deb
 ```
 
 Inspect and install the package:
 
 ```bash
-dpkg-deb --info dist/printqueue_0.1.0_amd64.deb
-dpkg-deb --contents dist/printqueue_0.1.0_amd64.deb
-sudo apt install ./dist/printqueue_0.1.0_amd64.deb
+dpkg-deb --info dist/printqueue_0.1.1_amd64.deb
+dpkg-deb --contents dist/printqueue_0.1.1_amd64.deb
+sudo apt install ./dist/printqueue_0.1.1_amd64.deb
 ```
 
 Install one of the optional desktop integrations afterward as shown above.
@@ -244,11 +244,11 @@ PrintQueue can be distributed as a `.deb`. Before publishing a GitHub release:
 6. Generate a checksum:
 
    ```bash
-   sha256sum dist/printqueue_0.1.0_amd64.deb \
-     > dist/printqueue_0.1.0_amd64.deb.sha256
+   sha256sum dist/printqueue_0.1.1_amd64.deb \
+     > dist/printqueue_0.1.1_amd64.deb.sha256
    ```
 
-7. Create a Git tag such as `v0.1.0` and attach the main `.deb`, both integration packages,
+7. Create a Git tag such as `v0.1.1` and attach the main `.deb`, both integration packages,
    and their `.sha256` files to the GitHub release.
 
 Build and test separate packages in reproducible CI environments for each supported CPU
