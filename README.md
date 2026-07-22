@@ -29,6 +29,7 @@ Files are not converted when they are added. Conversion starts only when the use
 | Documents | PDF |
 | Microsoft Office | DOC, DOCX, XLS, XLSX, PPT, PPTX |
 | OpenDocument | ODT, ODS, ODP |
+| Text | TXT |
 | Images | PNG, JPG, JPEG, TIFF, BMP, WebP |
 
 ## Requirements
@@ -126,9 +127,10 @@ install -Dm755 resources/dolphin/printqueue-servicemenu.desktop \
   ~/.local/share/kio/servicemenus/printqueue-servicemenu.desktop
 ```
 
-Supported files then provide an **Add to PrintQueue** action in Dolphin's context menu.
-Restart Dolphin if it was already running. The Debian package installs this integration
-system-wide through the separate `printqueue-dolphin` package.
+Supported files then provide a direct **Add to PrintQueue** action in Dolphin's context
+menu; no intermediate PrintQueue submenu is used. Restart Dolphin if it was already
+running. The Debian package installs this integration system-wide through the separate
+`printqueue-dolphin` package.
 
 ### GNOME Files (Nautilus)
 

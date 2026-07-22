@@ -17,6 +17,8 @@ from printqueue.services.file_service import (
         ("document.PDF", FileKind.PDF),
         ("text.docx", FileKind.OFFICE),
         ("sheet.XLSX", FileKind.OFFICE),
+        ("document.odt", FileKind.OFFICE),
+        ("notes.txt", FileKind.OFFICE),
         ("photo.jpeg", FileKind.IMAGE),
         ("scan.TIFF", FileKind.IMAGE),
     ],

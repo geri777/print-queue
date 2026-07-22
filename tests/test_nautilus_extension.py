@@ -42,11 +42,13 @@ def test_nautilus_extension_accepts_supported_local_files(monkeypatch):
     module = load_extension(monkeypatch)
     files = [
         FileInfo("file:///tmp/first%20file.pdf"),
-        FileInfo("file://localhost/tmp/second.docx"),
+        FileInfo("file://localhost/tmp/second.odt"),
+        FileInfo("file:///tmp/notes.txt"),
     ]
     assert module.PrintQueueMenuProvider._local_supported_paths(files) == [
         "/tmp/first file.pdf",
-        "/tmp/second.docx",
+        "/tmp/second.odt",
+        "/tmp/notes.txt",
     ]
 
 

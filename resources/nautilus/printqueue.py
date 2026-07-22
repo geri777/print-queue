@@ -19,6 +19,7 @@ SUPPORTED_SUFFIXES = {
     ".odt",
     ".ods",
     ".odp",
+    ".txt",
     ".png",
     ".jpg",
     ".jpeg",

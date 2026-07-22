@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-MimeType=application/pdf;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.openxmlformats-officedocument.presentationml.presentation;image/png;image/jpeg;image/tiff;
+MimeType=application/pdf;application/msword;application/vnd.ms-excel;application/vnd.ms-powerpoint;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.openxmlformats-officedocument.presentationml.presentation;application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.presentation;text/plain;image/png;image/jpeg;image/tiff;image/bmp;image/webp;
 Actions=addToPrintQueue;
-X-KDE-Submenu=PrintQueue
 
 [Desktop Action addToPrintQueue]
 Name=Add to PrintQueue

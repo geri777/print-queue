@@ -6,7 +6,18 @@ from pathlib import Path
 from printqueue.domain import FileKind, QueueItem
 
 PDF_SUFFIXES = {".pdf"}
-OFFICE_SUFFIXES = {".docx", ".xlsx", ".pptx", ".doc", ".xls", ".ppt", ".odt", ".ods", ".odp"}
+OFFICE_SUFFIXES = {
+    ".docx",
+    ".xlsx",
+    ".pptx",
+    ".doc",
+    ".xls",
+    ".ppt",
+    ".odt",
+    ".ods",
+    ".odp",
+    ".txt",
+}
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp", ".webp"}
 SUPPORTED_SUFFIXES = PDF_SUFFIXES | OFFICE_SUFFIXES | IMAGE_SUFFIXES
 
