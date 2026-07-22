@@ -1,11 +1,7 @@
 # PrintQueue for Linux
 
-PrintQueue is a Linux desktop application for collecting and arranging multiple documents
-and sending them to CUPS as a single print job. It supports KDE Plasma and GNOME and is
-designed as a Linux alternative to Print Conductor.
-
-Files are not converted when they are added. Conversion starts only when the user clicks
-**Print**, keeping the user interface responsive.
+PrintQueue is a super easy and hassle-free Linux desktop application for collecting, arranging and printing multiple documents. 
+It supports KDE Plasma and GNOME and is designed as a Linux alternative to Print Conductor.
 
 ![PrintQueue main window](resources/screenshot.png)
 
