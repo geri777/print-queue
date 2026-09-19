@@ -91,7 +91,7 @@ python3 -m venv .venv
 .venv/bin/printqueue
 ```
 
-Dont's forget to give this repository a ⭐ if you find PrintQueue useful. Thank you ♥
+Dont forget to give this repository a ⭐ if you find PrintQueue useful. Thank you ♥
 
 ## Usage
 
