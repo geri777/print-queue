@@ -91,7 +91,11 @@ python3 -m venv .venv
 .venv/bin/printqueue
 ```
 
+Dont's forget to give this repository a ⭐ if you find PrintQueue useful. Thank you ♥
+
 ## Usage
+
+Either you click "Add to PrintQueue" in your file manager or ...
 
 Launch PrintQueue without arguments or pass multiple files directly:
 
